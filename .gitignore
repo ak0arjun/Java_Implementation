@@ -7,6 +7,8 @@
 node_modules/
 dist/
 
+bin/
+
 # Compiled Java class files
 *.class
 
@@ -47,4 +49,6 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+
 
