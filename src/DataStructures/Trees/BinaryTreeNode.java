@@ -5,6 +5,7 @@ public class BinaryTreeNode<T> {
 	BinaryTreeNode<T> left;
 	BinaryTreeNode<T> right;
 	BinaryTreeNode<T> parent;
+	Integer priority = 0;
 
 	public boolean isComplete() {
 		if(left!=null && right!=null) {
