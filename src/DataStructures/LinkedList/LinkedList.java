@@ -1,5 +1,6 @@
 package DataStructures.LinkedList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,9 +29,10 @@ public class LinkedList<T> {
 	 */
 	public int findLen(){
 		int len=0;
-		while(head!=null){
+		Node<T> temp = head;
+		while(temp!=null){
 			len++;
-			head=head.next;
+			temp=temp.next;
 		}
 		return len;
 	}
@@ -89,6 +91,16 @@ public class LinkedList<T> {
 		}
 		System.out.println(" ");
 		System.out.println("List end");
+	}
+	
+	public ArrayList<T> getArrayList() {
+		Node<T> temp = head;
+		ArrayList<T> retArr = new ArrayList<T>();
+		while(temp!=null){
+			retArr.add(temp.val);
+			temp = temp.next;
+		}
+		return retArr;
 	}
 	
 	/**

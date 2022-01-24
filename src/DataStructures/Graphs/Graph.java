@@ -332,7 +332,7 @@ public class Graph<T> {
 	}
 
 	/**
-	 * Find the shortest possible path between 2 nodes and return the path value.
+	 * Find the shortest possible path between 2 nodes using dijikstra's algorithm and return the path value.
 	 * @param val
 	 * @param val2
 	 * @param pathTraversal
@@ -353,7 +353,7 @@ public class Graph<T> {
 					remaining.addNodeToTree(node, 1000000);
 				}
 			}
-			
+
 			remaining.printHeap();
 			GraphNode<T> node = remaining.extractTop();
 			while(node != null) {
@@ -373,8 +373,7 @@ public class Graph<T> {
 						remaining.adjustNodePriority(nodeChildren, newWeight);
 					}
 				}
-				remaining.printHeap();
-				 node = remaining.extractTop();
+				node = remaining.extractTop();
 			}
 			if(pathWeight.containsKey(val2)) {
 				pathTotalWeight=pathWeight.get(val2);

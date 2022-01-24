@@ -13,4 +13,16 @@ public class BinaryTreeNode<T> {
 		}
 		return false;
 	}
+	
+	public BinaryTreeNode<T>  getLeft() {
+		return left;
+	}
+	
+	public BinaryTreeNode<T>  getRight() {
+		return right;
+	}
+	
+	public T getValue() {
+		return val;
+	}
 }

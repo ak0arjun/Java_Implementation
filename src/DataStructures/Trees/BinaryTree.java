@@ -1,6 +1,7 @@
 package DataStructures.Trees;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import DataStructures.Queues.Queue;
@@ -13,6 +14,7 @@ import DataStructures.Stack.Stack;
  *Delete
  *Print Tree
  *Find value
+ *isBalanced
  *isBst
  * 
  * @author root
@@ -59,6 +61,7 @@ public class BinaryTree<T> {
 						parentNode = queue.peek();
 						BinaryTreeNode<T> temp = new BinaryTreeNode<T>();
 						temp.val = values.get(li);
+						temp.parent = parentNode;
 						if(parentNode.left==null) {
 							parentNode.left = temp;
 							queue.push(temp);
@@ -132,7 +135,7 @@ public class BinaryTree<T> {
 	 * In order traversal/print of tree using recursion
 	 * @param _root
 	 */
-	public void inOrderPrintRec(BinaryTreeNode<T> _root) {
+	protected void inOrderPrintRec(BinaryTreeNode<T> _root) {
 		if(_root==null)
 		{		
 			return;
@@ -146,7 +149,7 @@ public class BinaryTree<T> {
 	/**
 	 * Pre order traversal and print without recursion
 	 */
-	public void preOrderPrint( ) {
+	protected void preOrderPrint( ) {
 		if(root==null)
 		{		
 			return;
@@ -170,7 +173,7 @@ public class BinaryTree<T> {
 	/**
 	 * In order traversal and print without recursion
 	 */
-	public void inOrderPrint( ) {
+	protected void inOrderPrint( ) {
 		if(root==null)
 		{		
 			return;
@@ -192,7 +195,7 @@ public class BinaryTree<T> {
 	/**
 	 * Post order traversal and print without recursion
 	 */
-	public void postOrderPrint( ) {
+	protected void postOrderPrint( ) {
 		if(root==null)
 		{		
 			return;
@@ -224,7 +227,7 @@ public class BinaryTree<T> {
 	 * Pre order traversal/print of tree using recursion
 	 * @param _root
 	 */
-	public void preOrderPrintRec(BinaryTreeNode<T> _root) {
+	protected void preOrderPrintRec(BinaryTreeNode<T> _root) {
 		if(_root==null)
 		{		
 			return;
@@ -239,7 +242,7 @@ public class BinaryTree<T> {
 	 * Post order traversal/print of tree using recursion
 	 * @param _root
 	 */
-	public void postOrderPrintRec(BinaryTreeNode<T> _root) {
+	protected void postOrderPrintRec(BinaryTreeNode<T> _root) {
 		if(_root==null)
 		{		
 			return;
@@ -268,19 +271,19 @@ public class BinaryTree<T> {
 	}
 
 	/**
-	 * Return true/false if given value exists in tree in BFS
+	 * Return node if given value exists in tree in BFS else return null
 	 * @param value - Value to find
 	 * @return
 	 */
-	public boolean findNode(T value) {
-		boolean result=false;
+	public BinaryTreeNode<T> findNode(T value) {
+		BinaryTreeNode<T> result=null;
 		Queue<BinaryTreeNode<T>> queue = new Queue<BinaryTreeNode<T>>(null);
 		queue.push(root);
 		while(!queue.isEmpty()) {
 			BinaryTreeNode<T> temp = queue.pop();
 			if(temp!=null) {
 				if(temp.val == value) {
-					result = true;
+					result = temp;
 					break;
 				}
 				queue.push(temp.left);
@@ -354,7 +357,7 @@ public class BinaryTree<T> {
 		values.add(value);
 		addNodesToTree(values);
 	}
-	
+
 	/**
 	 * Return true if tree is BST
 	 * @return
@@ -372,7 +375,85 @@ public class BinaryTree<T> {
 				lastVal = lastTravesal.get(li);
 			}
 		}
-	
+
 		return retVal;
+	}
+
+	/**
+	 * Return true if tree is balanced i.e each node left -right height is <= 1 and >= -1
+	 * @return
+	 */
+	public boolean isBalanced() {
+		boolean retVal = true;
+		Integer height = checkBalance(root);
+		if(height == -10000 ) {
+			retVal = false;
+		}
+		return retVal;
+	}
+
+	protected Integer checkBalance(BinaryTreeNode<T> node) {
+		if(node==null) {
+			return 0;
+		}
+		Integer leftHeight = checkBalance(node.left);
+		Integer rightHeight = checkBalance(node.right);
+		if(leftHeight ==-10000 || rightHeight==10000) {
+			return -10000;
+		}
+		if((leftHeight - rightHeight)<-1 || (leftHeight - rightHeight)>1 ) {
+			return -10000;
+		}
+		if(leftHeight>rightHeight) {
+			return (1 + leftHeight);
+		}
+		return (1 + rightHeight);
+	}
+
+	public BinaryTreeNode<T> findCommonAncestor(BinaryTreeNode<T> node1, BinaryTreeNode<T> node2){
+		BinaryTreeNode<T> ancestor = null;
+		if(node1!=null && node2!=null) {
+			int rootHeight1 = 0;
+			BinaryTreeNode<T> temp = node1;
+			while(temp!=root) {
+				temp = temp.parent;
+				rootHeight1++;
+			}
+			int rootHeight2 = 0;
+			temp = node2;
+			while(temp!=root) {
+				temp = temp.parent;
+				rootHeight2++;
+			}
+			while(rootHeight1!=rootHeight2) {
+				if(rootHeight1>rootHeight2) {
+					rootHeight1--;
+					node1 = node1.parent;
+				}else {
+					rootHeight2--;
+					node2 = node2.parent;
+				}
+			}
+
+			while(node1!=null || node2!=null) {
+				if(node1==node2) {
+					ancestor= node1;
+					break;
+				}
+				node1 = node1.parent;
+				node2 = node2.parent;
+			}
+			
+
+		}
+		return ancestor;
+	}
+
+	/**
+	 * Return root node
+	 * @return
+	 */
+	public BinaryTreeNode<T> getRoot(){
+		return root;
 	}
 }
