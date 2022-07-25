@@ -46,7 +46,7 @@ public class BinaryTree<T extends Comparable<T>>  {
 	 * @param values
 	 */
 	public void addNodesInBst(List<T> values) {
-		if(  isTreeBST()) {
+		if(isTreeBST()) {
 			BinaryTreeNode<T> parentNode = root;
 			if(values != null) {
 				for(Integer li=0;li<values.size();li++) {
@@ -57,9 +57,11 @@ public class BinaryTree<T extends Comparable<T>>  {
 					if(parentNode==null) {
 						parentNode = newNode;
 						root = parentNode;
+						root.priority = 0;
 					}else {
 						parentNode = getBSTParent(currVal, root);
-						if(parentNode.val.compareTo(currVal)>0) {
+						if(parentNode.val.compareTo(currVal)>=0) {
+							parentNode.priority++;
 							parentNode.left = newNode;
 							newNode.parent=parentNode;
 						}else if(parentNode.val.compareTo(currVal)<0) {
@@ -100,10 +102,11 @@ public class BinaryTree<T extends Comparable<T>>  {
 		if(currNode==null) {
 			return null;
 		}
-		if(currNode.val.compareTo(val)>0) {
+		if(currNode.val.compareTo(val)>=0) {
 			if(currNode.left==null) {
 				return currNode;
 			}
+			currNode.priority++;
 			return getBSTParent(val, currNode.left);
 		}else if(currNode.val.compareTo(val)<0){
 			if(currNode.right==null) {
@@ -263,7 +266,7 @@ public class BinaryTree<T extends Comparable<T>>  {
 				temp = temp.left;
 			}
 			temp = stack.pop();
-			System.out.print(temp.val + " ");
+			System.out.print(temp.val + "("+temp.priority+")");
 			lastTravesal.add(temp.val);
 			temp=temp.right;
 		}
@@ -384,6 +387,52 @@ public class BinaryTree<T extends Comparable<T>>  {
 			}
 		}
 		return retNode;
+	}
+	
+	/**
+	 * Return node if the given value exists in tree. Assume tree is Bst hence perform binary search
+	 * @param value
+	 * @return If a value is matched return the node else return null
+	 */
+	public Integer binarySearch(T value, BinaryTreeNode<T> result){
+		if(!isTreeBST()) {
+			return 0;
+		}
+		Integer priorityCount = 0 ;
+		result=root;
+		while(result != null) {
+			if(result.val.compareTo(value)==0) {
+				priorityCount += result.priority;
+				break;
+			}
+			if(result.val.compareTo(value)>0) {
+				result = result.left;
+			}else {
+				priorityCount += result.priority + 1;
+				result=  result.right;
+			}
+		}
+		return priorityCount;
+	}
+	
+	/**
+	 * Count number of nodes in a tree.
+	 * @param node
+	 * @return
+	 */
+	public int countNodesInTree(BinaryTreeNode<T> node) {
+		int count = 0;
+		Queue<BinaryTreeNode<T>> treeQueue = new Queue<BinaryTreeNode<T>>(null);
+		treeQueue.push(node);
+		while(!treeQueue.isEmpty()) {
+			BinaryTreeNode<T> temp = treeQueue.pop();
+			if(temp!=null) {
+				count++;
+				treeQueue.push(temp.left);
+				treeQueue.push(temp.right);
+			}
+		}
+		return count;
 	}
 
 	/**

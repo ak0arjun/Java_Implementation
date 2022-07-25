@@ -10,7 +10,9 @@ package dataStructures.stack;
  */
 public class Stack<T> {
 	private Node head;
+	public String label;
 
+	
 	
 	private class Node{
 		T val;

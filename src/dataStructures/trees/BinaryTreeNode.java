@@ -22,6 +22,10 @@ public class BinaryTreeNode<T> {
 		return right;
 	}
 	
+	public BinaryTreeNode<T>  getParent() {
+		return parent;
+	}
+	
 	public T getValue() {
 		return val;
 	}
