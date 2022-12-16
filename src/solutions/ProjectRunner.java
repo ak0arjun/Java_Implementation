@@ -1,11 +1,11 @@
 package solutions;
 
-import solutions.recursionAndDynamicProgramming.TowerOfHanoi;
+import solutions.recursionAndDynamicProgramming.EightQueenProblem;
 
 public class ProjectRunner {
 
 	public static void main(String[] args) {
-		TowerOfHanoi recursiveMultiply = new TowerOfHanoi();
+		EightQueenProblem recursiveMultiply = new EightQueenProblem();
 		recursiveMultiply.run();
 	}
 
