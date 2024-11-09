@@ -1,12 +1,13 @@
 package solutions;
 
-import solutions.recursionAndDynamicProgramming.EightQueenProblem;
+import solutions.arrays.RotateMatrix90;
+import solutions.strings.Permutation;
 
 public class ProjectRunner {
 
 	public static void main(String[] args) {
-		EightQueenProblem recursiveMultiply = new EightQueenProblem();
-		recursiveMultiply.run();
+		AddNumbers addNumbers = new AddNumbers();
+		addNumbers.run();
 	}
 
 }

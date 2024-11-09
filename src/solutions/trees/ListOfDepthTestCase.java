@@ -32,7 +32,7 @@ public class ListOfDepthTestCase extends TestCaseAbstract{
 	
 	protected void createTreeList() {
 		LinkedList<BinaryTreeNode<Integer>> currentList = new LinkedList<BinaryTreeNode<Integer>> (null);
-		currentList.addValue(tree.getRoot());
+		currentList.addValue(tree.getRoot(), false);
 		while(currentList.findLen() != 0) {
 			lists.add(currentList);
 			LinkedList<BinaryTreeNode<Integer>> parents = currentList;
@@ -41,10 +41,10 @@ public class ListOfDepthTestCase extends TestCaseAbstract{
 			for(int li=0;li<parents.getArrayList().size();li++) {
 				BinaryTreeNode<Integer> parent = parentsArr.get(li);
 				if(parent.getLeft()!=null ) {
-					currentList.addValue(parent.getLeft());
+					currentList.addValue(parent.getLeft(), false);
 				}
 				if(parent.getRight()!=null ) {
-					currentList.addValue(parent.getRight());
+					currentList.addValue(parent.getRight(), false);
 				}
 			}
 		}

@@ -10,7 +10,7 @@ import java.util.List;
  * @param <T>
  */
 public class LinkedList<T> {
-	
+
 	/**
 	 * head pointer of the list
 	 */
@@ -38,19 +38,35 @@ public class LinkedList<T> {
 	}
 
 	/**
-	 * Add given pad value at head of the list
+	 * Add given pad value at head/bottom of the list
 	 * @param head
 	 * @param pad
 	 * @param padVal
+	 * @param start -- If true padding added at start of list else at bottom
 	 * @return
 	 */
-	protected  void padList( int pad, T padVal){
+	public  void padList( int pad, T padVal, boolean start){
+		if (head == null && pad > 0) {
+			head = new Node<T>();
+			head.val = padVal;
+			pad--;
+		}
 		if(pad>0 && head!=null){
+			Node<T> tail = head;
+			while (tail.next != null) {
+				tail = tail.next;
+			}
 			while(pad>0){
 				Node<T> temp = new Node<T>();
 				temp.val = padVal;
-				temp.next = head;
-				head = temp;
+				if (start) {
+					temp.next = head;
+					head = temp;
+				} else {
+					tail.next = temp;
+					temp.next = null;
+					tail = temp;
+				}
 				pad--;
 			}
 		}
@@ -86,13 +102,13 @@ public class LinkedList<T> {
 		Node<T> temp = head;
 		System.out.println("List start");
 		while(temp!=null){
-			System.out.println(temp.val + ", ");
+			System.out.print(temp.val + ", ");
 			temp = temp.next;
 		}
 		System.out.println(" ");
 		System.out.println("List end");
 	}
-	
+
 	public ArrayList<T> getArrayList() {
 		Node<T> temp = head;
 		ArrayList<T> retArr = new ArrayList<T>();
@@ -102,7 +118,7 @@ public class LinkedList<T> {
 		}
 		return retArr;
 	}
-	
+
 	/**
 	 * Delete the node with given value
 	 * @param val
@@ -128,26 +144,36 @@ public class LinkedList<T> {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Add given value at the end of the list
+	 * @param start -- If true padding added at start of list else at bottom
 	 * @param val
 	 */
-	public void addValue(T val) {
+	public void addValue(T val, boolean start) {
 		if(head == null) {
 			head = new Node<T>();
 			head.val = val;
 		}else {
 			Node<T> ptr = head;
-			Node<T> ptrLast = head;
-			while(ptr!=null) {
-				ptrLast = ptr;
-				ptr = ptr.next;
-			}
 			Node<T> temp = new Node<T>();
 			temp.val = val;
-			ptrLast.next = temp;
+			if (start ) {
+				temp.next = head;
+				head = temp;
+			} else {
+				Node<T> ptrLast = head;
+				while(ptr!=null) {
+					ptrLast = ptr;
+					ptr = ptr.next;
+				}
+				ptrLast.next = temp;
+			}
+			
 		}
-		
+	}
+	
+	public Node<T> getHead() {
+		return head;
 	}
 }

@@ -8,4 +8,12 @@ public class Node<T>{
 	public void setNext(Node<T> next) {
 		this.next = next;
 	}
+	
+	public T getVal() {
+		return val;
+	}
+	
+	public Node<T>  getNext() {
+		return next;
+	}
 }
