@@ -1,13 +1,12 @@
 package solutions;
 
-import solutions.arrays.RotateMatrix90;
-import solutions.strings.Permutation;
+import solutions.trees.BstTestCases;
 
 public class ProjectRunner {
 
 	public static void main(String[] args) {
-		AddNumbers addNumbers = new AddNumbers();
-		addNumbers.run();
+		BstTestCases bstTestCases = new BstTestCases();
+		bstTestCases.run();
 	}
 
 }

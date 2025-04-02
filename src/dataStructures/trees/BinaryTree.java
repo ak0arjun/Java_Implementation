@@ -457,6 +457,36 @@ public class BinaryTree<T extends Comparable<T>>  {
 		}
 		return result;
 	}
+	
+	/**
+	 * Find the given value in the given subtree
+	 * @param interimRoot Root pointer to the sub-tree in which value to be found
+	 * @param value Value to be found
+	 * @return Returns the pointer to node if value is found else return null
+	 */
+	public BinaryTreeNode<T> findNodeInSubTree(BinaryTreeNode<T> interimRoot, T value) {
+		if (interimRoot == null) {
+			return null;
+		}
+		 if(value == null) {
+			 return null;
+		 }
+		 if(interimRoot.getValue() == value) {
+			 return interimRoot;
+		 }
+		 
+		 BinaryTreeNode<T> left = findNodeInSubTree(interimRoot.getLeft(), value);
+		 if(left != null) {
+			 return left;
+		 }
+		 
+		 BinaryTreeNode<T> right = findNodeInSubTree(interimRoot.getRight(), value);
+		 if(right != null) {
+			 return right;
+		 }
+		 
+		 return null;
+	}
 
 	/**
 	 * Delete tree node with the given value in BFS traversal

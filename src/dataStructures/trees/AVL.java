@@ -3,7 +3,7 @@ package dataStructures.trees;
 import dataStructures.queues.Queue;
 
 /**
- * Implementation of AVL tree DS.  Supporting add node, delete node  , print tree
+ * Implementation of AVL tree DS.  Supporting add node, delete node, print tree
  * @author root
  *
  * @param <T>

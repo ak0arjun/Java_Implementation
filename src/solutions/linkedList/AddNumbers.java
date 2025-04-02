@@ -1,8 +1,9 @@
-package solutions;
+package solutions.linkedList;
 
 
 import dataStructures.linkedList.LinkedList;
 import dataStructures.linkedList.Node;
+import solutions.TestCaseAbstract;
 
 public class AddNumbers extends TestCaseAbstract {
 

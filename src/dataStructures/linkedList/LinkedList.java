@@ -147,7 +147,7 @@ public class LinkedList<T> {
 
 	/**
 	 * Add given value at the end of the list
-	 * @param start -- If true padding added at start of list else at bottom
+	 * @param start -- If true value added at start of list else at bottom
 	 * @param val
 	 */
 	public void addValue(T val, boolean start) {
@@ -175,5 +175,17 @@ public class LinkedList<T> {
 	
 	public Node<T> getHead() {
 		return head;
+	}
+	
+	public Node<T> findMiddle() {
+		Node<T> start = head;
+		Node<T> end = head;
+		
+		while(end != null && end.next !=null) {
+			start = start.next;
+			end = end.next.next;
+		}
+		
+		return start;
 	}
 }
